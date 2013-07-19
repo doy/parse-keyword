@@ -71,3 +71,56 @@ install_keyword_handler(keyword, handler)
     SV *handler
   CODE:
     cv_set_call_parser((CV*)SvRV(keyword), parser_callback, handler);
+
+void
+lex_read_space()
+  CODE:
+    lex_read_space(0);
+
+SV*
+lex_peek_unichar()
+  PREINIT:
+    I32 ch;
+  CODE:
+    ch = lex_peek_unichar(0);
+    RETVAL = newSVpvf("%c", (int)ch); /* XXX unicode */
+  OUTPUT:
+    RETVAL
+
+SV*
+parse_block()
+  PREINIT:
+    I32 floor;
+    CV *code;
+  CODE:
+    floor = start_subparse(0, CVf_ANON);
+    code = newATTRSUB(floor, NULL, NULL, NULL, parse_block(0));
+    if (CvCLONE(code)) {
+        code = cv_clone(code);
+    }
+    RETVAL = newRV_inc((SV*)code);
+  OUTPUT:
+    RETVAL
+
+void
+ensure_linestr_len(len)
+    UV len
+  CODE:
+    while (PL_parser->bufend - PL_parser->bufptr < len) {
+        if (!lex_next_chunk(LEX_KEEP_PREVIOUS)) {
+            break;
+        }
+    }
+
+SV*
+linestr()
+  CODE:
+    RETVAL = newSVpvn(PL_parser->bufptr, PL_parser->bufend - PL_parser->bufptr);
+  OUTPUT:
+    RETVAL
+
+void
+lex_read_to(len)
+    UV len
+  CODE:
+    lex_read_to(PL_parser->bufptr + len);

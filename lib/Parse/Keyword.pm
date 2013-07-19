@@ -25,6 +25,20 @@ sub import {
         };
         install_keyword_handler($sub, $keywords->{$keyword});
     }
+
+    my @helpers = qw(
+        lex_peek_unichar
+        lex_read_space
+        lex_read_to
+        parse_block
+        ensure_linestr_len
+        linestr
+    );
+
+    for my $helper (@helpers) {
+        no strict 'refs';
+        *{ $caller . '::' . $helper } = \&{ __PACKAGE__ . '::' . $helper };
+    }
 }
 
 1;
