@@ -15,3 +15,5 @@ MANIFEST.bak
 Parse-Keyword-*
 *.bs
 *.o
+*.c
+callparser1.h
