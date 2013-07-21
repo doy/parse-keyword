@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use lib 't/try/lib';
 
+use Test::Requires 'Try::Tiny';
+
 use Try;
 
 my $err;

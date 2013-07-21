@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use lib 't/fun/lib';
 
+use Test::Requires 'Sub::Name';
+
 use Fun;
 
 fun test_array ( $foo, @bar ) {

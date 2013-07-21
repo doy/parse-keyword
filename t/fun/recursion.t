@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use lib 't/fun/lib';
 
+use Test::Requires 'Sub::Name';
+
 BEGIN {
     if (!eval { require 5.016; 1 }) {
         plan skip_all => "This test requires 5.16";

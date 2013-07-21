@@ -4,6 +4,8 @@ use warnings;
 use Test::More;
 use lib 't/fun/lib';
 
+use Test::Requires 'Sub::Name';
+
 use Fun;
 
 my $fun = fun ($x, $y) { $x * $y };

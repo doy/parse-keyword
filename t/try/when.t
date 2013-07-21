@@ -5,6 +5,8 @@ use Test::More;
 use lib 't/try/lib';
 use 5.014;
 
+use Test::Requires 'Try::Tiny';
+
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 use Try;
