@@ -12,6 +12,24 @@ XSLoader::load(
     exists $Parse::Keyword::{VERSION} ? ${ $Parse::Keyword::{VERSION} } : (),
 );
 
+=head1 SYNOPSIS
+
+=head1 DESCRIPTION
+
+=cut
+
+=func lex_peek
+
+=func lex_read
+
+=func lex_read_space
+
+=func parse_block
+
+=func compiling_package
+
+=cut
+
 sub import {
     my $package = shift;
     my ($keywords) = @_;
@@ -39,5 +57,54 @@ sub import {
         *{ $caller . '::' . $helper } = \&{ __PACKAGE__ . '::' . $helper };
     }
 }
+
+=head1 BUGS
+
+No known bugs.
+
+Please report any bugs to GitHub Issues at
+L<https://github.com/doy/parse-keyword/issues>.
+
+=head1 SEE ALSO
+
+L<Devel::Declare>
+
+L<Devel::CallParser>
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc Parse::Keyword
+
+You can also look for information at:
+
+=over 4
+
+=item * MetaCPAN
+
+L<https://metacpan.org/release/Parse-Keyword>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Parse-Keyword>
+
+=item * Github
+
+L<https://github.com/doy/parse-keyword>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Parse-Keyword>
+
+=back
+
+=begin Pod::Coverage
+
+  install_keyword_handler
+
+=end Pod::Coverage
+
+=cut
 
 1;
