@@ -141,3 +141,9 @@ compiling_package()
     RETVAL = newSVsv(PL_curstname);
   OUTPUT:
     RETVAL
+
+void
+lex_stuff(str)
+    SV *str
+  CODE:
+    lex_stuff_sv(str, 0);

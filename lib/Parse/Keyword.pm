@@ -50,6 +50,7 @@ sub import {
         lex_read
         parse_block
         compiling_package
+        lex_stuff
     );
 
     for my $helper (@helpers) {
