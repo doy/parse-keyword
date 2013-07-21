@@ -29,7 +29,7 @@ sub import {
     my @helpers = qw(
         lex_peek
         lex_read_space
-        lex_read_to
+        lex_read
         parse_block
     );
 

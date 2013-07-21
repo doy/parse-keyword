@@ -112,7 +112,7 @@ lex_peek(len)
     RETVAL
 
 void
-lex_read_to(len)
+lex_read(len)
     UV len
   CODE:
     PL_curcop = &PL_compiling;
