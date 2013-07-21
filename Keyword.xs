@@ -108,7 +108,7 @@ parse_block()
     RETVAL
 
 SV *
-lex_peek(len)
+lex_peek(len = 1)
     UV len
   CODE:
     PL_curcop = &PL_compiling;
@@ -125,7 +125,7 @@ lex_peek(len)
     RETVAL
 
 void
-lex_read(len)
+lex_read(len = 1)
     UV len
   CODE:
     PL_curcop = &PL_compiling;

@@ -24,7 +24,7 @@ sub try_parser {
 
     lex_read_space;
 
-    die "syntax error" unless lex_peek(1) eq '{';
+    die "syntax error" unless lex_peek eq '{';
     $try = parse_block;
 
     lex_read_space;
@@ -32,7 +32,7 @@ sub try_parser {
     if (lex_peek(6) =~ /^catch\b/) {
         lex_read(5);
         lex_read_space;
-        die "syntax error" unless lex_peek(1) eq '{';
+        die "syntax error" unless lex_peek eq '{';
         $catch = parse_block;
     }
 
@@ -41,7 +41,7 @@ sub try_parser {
     if (lex_peek(8) =~ /^finally\b/) {
         lex_read(7);
         lex_read_space;
-        die "syntax error" unless lex_peek(1) eq '{';
+        die "syntax error" unless lex_peek eq '{';
         $finally = parse_block;
     }
 
