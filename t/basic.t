@@ -31,8 +31,7 @@ use Test::More;
     }
 
     baz {
-        my $foo = 1;
-        return $foo + 2;
+        1 + 2
     }
     ::is(ref($code), 'CODE');
     ::is($code->(), 3);
