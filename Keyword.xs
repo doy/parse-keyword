@@ -41,12 +41,13 @@ static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
     SV *statement = NULL;
     I32 count;
 
-    // call the parser callback
-    // it should take no arguments and return a coderef which, when called,
-    // produces the arguments to the keyword function
-    // the optree we want to generate is for something like
-    //   mykeyword($code->())
-    // where $code is the thing returned by the parser function
+    /* call the parser callback
+     * it should take no arguments and return a coderef which, when called,
+     * produces the arguments to the keyword function
+     * the optree we want to generate is for something like
+     *   mykeyword($code->())
+     * where $code is the thing returned by the parser function
+     */
 
     PUSHMARK(SP);
     count = call_sv(psobj, G_ARRAY);
