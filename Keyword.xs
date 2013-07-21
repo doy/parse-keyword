@@ -15,6 +15,25 @@
 
 #define LEAVE_PARSER LEAVE
 
+static SV *parser_fn(OP *(fn)(U32))
+{
+    I32 floor;
+    CV *code;
+
+    REENTER_PARSER;
+
+    floor = start_subparse(0, CVf_ANON);
+    code = newATTRSUB(floor, NULL, NULL, NULL, fn(0));
+
+    LEAVE_PARSER;
+
+    if (CvCLONE(code)) {
+        code = cv_clone(code);
+    }
+
+    return newRV_inc((SV*)code);
+}
+
 static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
 {
     dSP;
@@ -123,43 +142,15 @@ lex_stuff(str)
 
 SV *
 parse_block()
-  PREINIT:
-    I32 floor;
-    CV *code;
   CODE:
-    REENTER_PARSER;
-
-    floor = start_subparse(0, CVf_ANON);
-    code = newATTRSUB(floor, NULL, NULL, NULL, parse_block(0));
-
-    LEAVE_PARSER;
-
-    if (CvCLONE(code)) {
-        code = cv_clone(code);
-    }
-
-    RETVAL = newRV_inc((SV*)code);
+    RETVAL = parser_fn(Perl_parse_block);
   OUTPUT:
     RETVAL
 
 SV *
 parse_arithexpr()
-  PREINIT:
-    I32 floor;
-    CV *code;
   CODE:
-    REENTER_PARSER;
-
-    floor = start_subparse(0, CVf_ANON);
-    code = newATTRSUB(floor, NULL, NULL, NULL, parse_arithexpr(0));
-
-    LEAVE_PARSER;
-
-    if (CvCLONE(code)) {
-        code = cv_clone(code);
-    }
-
-    RETVAL = newRV_inc((SV*)code);
+    RETVAL = parser_fn(Perl_parse_arithexpr);
   OUTPUT:
     RETVAL
 
