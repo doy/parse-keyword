@@ -5,6 +5,8 @@ use Test::More;
 use lib 't/try/lib';
 use 5.014;
 
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
+
 use Try;
 
 my ( $error, $topic );
@@ -24,7 +26,8 @@ given ("foo") {
 is( $error, "blah\n", "error caught" );
 
 {
-    local $TODO = "perhaps a workaround can be found";
+    local $TODO = "perhaps a workaround can be found"
+        if $] < 5.018;
     is( $topic, $error, 'error is also in $_' );
 }
 
