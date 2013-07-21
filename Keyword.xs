@@ -119,7 +119,6 @@ ensure_linestr_len(len)
 SV*
 linestr()
   CODE:
-    PL_curcop = &PL_compiling;
     RETVAL = newSVpvn(PL_parser->bufptr, PL_parser->bufend - PL_parser->bufptr);
   OUTPUT:
     RETVAL
