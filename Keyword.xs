@@ -75,6 +75,7 @@ install_keyword_handler(keyword, handler)
 void
 lex_read_space()
   CODE:
+    PL_curcop = &PL_compiling;
     lex_read_space(0);
 
 SV*
@@ -82,6 +83,7 @@ lex_peek_unichar()
   PREINIT:
     I32 ch;
   CODE:
+    PL_curcop = &PL_compiling;
     ch = lex_peek_unichar(0);
     RETVAL = newSVpvf("%c", (int)ch); /* XXX unicode */
   OUTPUT:
@@ -107,6 +109,7 @@ void
 ensure_linestr_len(len)
     UV len
   CODE:
+    PL_curcop = &PL_compiling;
     while (PL_parser->bufend - PL_parser->bufptr < len) {
         if (!lex_next_chunk(LEX_KEEP_PREVIOUS)) {
             break;
@@ -116,6 +119,7 @@ ensure_linestr_len(len)
 SV*
 linestr()
   CODE:
+    PL_curcop = &PL_compiling;
     RETVAL = newSVpvn(PL_parser->bufptr, PL_parser->bufend - PL_parser->bufptr);
   OUTPUT:
     RETVAL
@@ -124,4 +128,5 @@ void
 lex_read_to(len)
     UV len
   CODE:
+    PL_curcop = &PL_compiling;
     lex_read_to(PL_parser->bufptr + len);
