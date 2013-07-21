@@ -72,25 +72,11 @@ static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
                                                 args_generator))));
 }
 
-// we will need helper functions for
-// - lexer functions
-//   - lex_read_space
-//   - lex_peek_unichar
-//   - lex_stuff_sv
-// - parser functions (OP* return values should become coderefs)
-//   - parse_arithexpr
-//   - parse_barestmt
-//   - parse_block
-//   - parse_fullexpr
-//   - parse_fullstmt
-//   - parse_label
-//   - parse_listexpr
-//   - parse_stmtseq
-//   - parse_termexpr
-// - random other things
-//   - "read a variable name"
-//   - "read a quoted string"
-//   - "create a new lexical variable" (should return a reference to it)
+/* TODO:
+ *   - "parse a variable name"
+ *   - "parse a quoted string"
+ *   - "create a new lexical variable" (maybe?)
+ */
 
 MODULE = Parse::Keyword  PACKAGE = Parse::Keyword
 
