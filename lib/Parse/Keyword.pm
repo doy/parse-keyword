@@ -28,6 +28,18 @@ XSLoader::load(
 
 =func parse_block
 
+=func parse_stmtseq
+
+=func parse_fullstmt
+
+=func parse_barestmt
+
+=func parse_fullexpr
+
+=func parse_listexpr
+
+=func parse_termexpr
+
 =func parse_arithexpr
 
 =func compiling_package
@@ -54,6 +66,12 @@ sub import {
         lex_read_space
         lex_stuff
         parse_block
+        parse_stmtseq
+        parse_fullstmt
+        parse_barestmt
+        parse_fullexpr
+        parse_listexpr
+        parse_termexpr
         parse_arithexpr
         compiling_package
     );
