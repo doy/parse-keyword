@@ -138,6 +138,6 @@ lex_read(len = 1)
 SV *
 compiling_package()
   CODE:
-    RETVAL = newSVhek(HvNAME_HEK(CopSTASH(&PL_compiling)));
+    RETVAL = newSVsv(PL_curstname);
   OUTPUT:
     RETVAL
