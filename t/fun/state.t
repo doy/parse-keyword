@@ -5,7 +5,11 @@ use warnings;
 use Test::More;
 use lib 't/fun/lib';
 
-use Test::Requires 'Sub::Name';
+BEGIN {
+    if (!eval { require Sub::Name }) {
+        plan skip_all => "This test requires Sub::Name";
+    }
+}
 
 use 5.10.0;
 use Fun;

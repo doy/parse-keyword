@@ -5,7 +5,11 @@ use Test::More;
 use lib 't/try/lib';
 use 5.014;
 
-use Test::Requires 'Try::Tiny';
+BEGIN {
+    if (!eval { require Try::Tiny }) {
+        plan skip_all => "This test requires Try::Tiny";
+    }
+}
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 

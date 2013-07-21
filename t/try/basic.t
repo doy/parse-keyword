@@ -4,7 +4,11 @@ use warnings;
 use Test::More;
 use lib 't/try/lib';
 
-use Test::Requires 'Try::Tiny';
+BEGIN {
+    if (!eval { require Try::Tiny }) {
+        plan skip_all => "This test requires Try::Tiny";
+    }
+}
 
 use Try;
 
