@@ -24,7 +24,11 @@ XSLoader::load(
 
 =func lex_read_space
 
+=func lex_stuff
+
 =func parse_block
+
+=func parse_arithexpr
 
 =func compiling_package
 
