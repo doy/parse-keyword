@@ -16,4 +16,26 @@ use Test::More;
     ::is_deeply([bar], [1, 2, 3]);
 }
 
+{
+    package Bar;
+
+    use Parse::Keyword { baz => \&baz_parser };
+
+    my $code;
+
+    sub baz { $code = $_[0] }
+    sub baz_parser {
+        lex_read_space;
+        my $block = parse_block;
+        return (sub { $block }, 1);
+    }
+
+    baz {
+        my $foo = 1;
+        return $foo + 2;
+    }
+    ::is(ref($code), 'CODE');
+    ::is($code->(), 3);
+}
+
 done_testing;
