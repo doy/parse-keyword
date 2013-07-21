@@ -3,6 +3,14 @@
 #include "callparser1.h"
 #include "XSUB.h"
 
+#define REENTER_PARSER STMT_START {    \
+    ENTER;                     \
+    PL_curcop = &PL_compiling; \
+    SAVEVPTR(PL_op);           \
+} STMT_END
+
+#define LEAVE_PARSER LEAVE
+
 static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
 {
     dSP;
@@ -83,16 +91,18 @@ parse_block()
   PREINIT:
     I32 floor;
     CV *code;
-    OP *old_pl_op;
   CODE:
-    PL_curcop = &PL_compiling;
-    old_pl_op = PL_op;
+    REENTER_PARSER;
+
     floor = start_subparse(0, CVf_ANON);
     code = newATTRSUB(floor, NULL, NULL, NULL, parse_block(0));
+
+    LEAVE_PARSER;
+
     if (CvCLONE(code)) {
         code = cv_clone(code);
     }
-    PL_op = old_pl_op;
+
     RETVAL = newRV_inc((SV*)code);
   OUTPUT:
     RETVAL
