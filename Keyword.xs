@@ -118,6 +118,7 @@ void
 lex_stuff(str)
     SV *str
   CODE:
+    PL_curcop = &PL_compiling;
     lex_stuff_sv(str, 0);
 
 SV *
