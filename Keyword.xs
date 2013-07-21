@@ -3,6 +3,10 @@
 #include "callparser1.h"
 #include "XSUB.h"
 
+#ifndef cv_clone
+#define cv_clone(a) Perl_cv_clone(aTHX_ a)
+#endif
+
 #define REENTER_PARSER STMT_START {    \
     ENTER;                     \
     PL_curcop = &PL_compiling; \
