@@ -29,8 +29,8 @@ sub try_parser {
 
     lex_read_space;
 
-    ensure_linestr_len(5);
-    if (linestr =~ /^catch/) {
+    ensure_linestr_len(6);
+    if (linestr =~ /^catch\b/) {
         lex_read_to(5);
         lex_read_space;
         die "syntax error" unless lex_peek_unichar eq '{';
@@ -39,8 +39,8 @@ sub try_parser {
 
     lex_read_space;
 
-    ensure_linestr_len(7);
-    if (linestr =~ /^finally/) {
+    ensure_linestr_len(8);
+    if (linestr =~ /^finally\b/) {
         lex_read_to(7);
         lex_read_space;
         die "syntax error" unless lex_peek_unichar eq '{';
