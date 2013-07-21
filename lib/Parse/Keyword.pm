@@ -27,12 +27,10 @@ sub import {
     }
 
     my @helpers = qw(
-        lex_peek_unichar
+        lex_peek
         lex_read_space
         lex_read_to
         parse_block
-        ensure_linestr_len
-        linestr
     );
 
     for my $helper (@helpers) {

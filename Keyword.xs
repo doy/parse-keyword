@@ -79,17 +79,6 @@ lex_read_space()
     lex_read_space(0);
 
 SV*
-lex_peek_unichar()
-  PREINIT:
-    I32 ch;
-  CODE:
-    PL_curcop = &PL_compiling;
-    ch = lex_peek_unichar(0);
-    RETVAL = newSVpvf("%c", (int)ch); /* XXX unicode */
-  OUTPUT:
-    RETVAL
-
-SV*
 parse_block()
   PREINIT:
     I32 floor;
@@ -105,8 +94,8 @@ parse_block()
   OUTPUT:
     RETVAL
 
-void
-ensure_linestr_len(len)
+SV *
+lex_peek(len)
     UV len
   CODE:
     PL_curcop = &PL_compiling;
@@ -115,11 +104,10 @@ ensure_linestr_len(len)
             break;
         }
     }
-
-SV*
-linestr()
-  CODE:
-    RETVAL = newSVpvn(PL_parser->bufptr, PL_parser->bufend - PL_parser->bufptr);
+    if (PL_parser->bufend - PL_parser->bufptr < len) {
+        len = PL_parser->bufend - PL_parser->bufptr;
+    }
+    RETVAL = newSVpvn(PL_parser->bufptr, len); /* XXX unicode? */
   OUTPUT:
     RETVAL
 

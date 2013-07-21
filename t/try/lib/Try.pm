@@ -24,26 +24,24 @@ sub try_parser {
 
     lex_read_space;
 
-    die "syntax error" unless lex_peek_unichar eq '{';
+    die "syntax error" unless lex_peek(1) eq '{';
     $try = parse_block;
 
     lex_read_space;
 
-    ensure_linestr_len(6);
-    if (linestr =~ /^catch\b/) {
+    if (lex_peek(6) =~ /^catch\b/) {
         lex_read_to(5);
         lex_read_space;
-        die "syntax error" unless lex_peek_unichar eq '{';
+        die "syntax error" unless lex_peek(1) eq '{';
         $catch = parse_block;
     }
 
     lex_read_space;
 
-    ensure_linestr_len(8);
-    if (linestr =~ /^finally\b/) {
+    if (lex_peek(8) =~ /^finally\b/) {
         lex_read_to(7);
         lex_read_space;
-        die "syntax error" unless lex_peek_unichar eq '{';
+        die "syntax error" unless lex_peek(1) eq '{';
         $finally = parse_block;
     }
 
