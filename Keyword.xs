@@ -112,6 +112,27 @@ parse_block()
     RETVAL
 
 SV *
+parse_arithexpr()
+  PREINIT:
+    I32 floor;
+    CV *code;
+  CODE:
+    REENTER_PARSER;
+
+    floor = start_subparse(0, CVf_ANON);
+    code = newATTRSUB(floor, NULL, NULL, NULL, parse_arithexpr(0));
+
+    LEAVE_PARSER;
+
+    if (CvCLONE(code)) {
+        code = cv_clone(code);
+    }
+
+    RETVAL = newRV_inc((SV*)code);
+  OUTPUT:
+    RETVAL
+
+SV *
 lex_peek(len = 1)
     UV len
   CODE:

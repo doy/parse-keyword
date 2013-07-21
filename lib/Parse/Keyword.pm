@@ -49,6 +49,7 @@ sub import {
         lex_read_space
         lex_read
         parse_block
+        parse_arithexpr
         compiling_package
         lex_stuff
     );
