@@ -148,6 +148,48 @@ parse_block()
     RETVAL
 
 SV *
+parse_stmtseq()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_stmtseq);
+  OUTPUT:
+    RETVAL
+
+SV *
+parse_fullstmt()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_fullstmt);
+  OUTPUT:
+    RETVAL
+
+SV *
+parse_barestmt()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_barestmt);
+  OUTPUT:
+    RETVAL
+
+SV *
+parse_fullexpr()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_fullexpr);
+  OUTPUT:
+    RETVAL
+
+SV *
+parse_listexpr()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_listexpr);
+  OUTPUT:
+    RETVAL
+
+SV *
+parse_termexpr()
+  CODE:
+    RETVAL = parser_fn(Perl_parse_termexpr);
+  OUTPUT:
+    RETVAL
+
+SV *
 parse_arithexpr()
   CODE:
     RETVAL = parser_fn(Perl_parse_arithexpr);
