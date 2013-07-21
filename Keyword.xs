@@ -93,6 +93,7 @@ parse_block()
     I32 floor;
     CV *code;
   CODE:
+    PL_curcop = &PL_compiling;
     floor = start_subparse(0, CVf_ANON);
     code = newATTRSUB(floor, NULL, NULL, NULL, parse_block(0));
     if (CvCLONE(code)) {
