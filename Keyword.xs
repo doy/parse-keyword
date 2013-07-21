@@ -83,13 +83,16 @@ parse_block()
   PREINIT:
     I32 floor;
     CV *code;
+    OP *old_pl_op;
   CODE:
     PL_curcop = &PL_compiling;
+    old_pl_op = PL_op;
     floor = start_subparse(0, CVf_ANON);
     code = newATTRSUB(floor, NULL, NULL, NULL, parse_block(0));
     if (CvCLONE(code)) {
         code = cv_clone(code);
     }
+    PL_op = old_pl_op;
     RETVAL = newRV_inc((SV*)code);
   OUTPUT:
     RETVAL
