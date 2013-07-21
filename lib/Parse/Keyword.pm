@@ -31,6 +31,7 @@ sub import {
         lex_read_space
         lex_read
         parse_block
+        compiling_package
     );
 
     for my $helper (@helpers) {

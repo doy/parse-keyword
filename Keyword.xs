@@ -130,3 +130,10 @@ lex_read(len = 1)
   CODE:
     PL_curcop = &PL_compiling;
     lex_read_to(PL_parser->bufptr + len);
+
+SV *
+compiling_package()
+  CODE:
+    RETVAL = newSVhek(HvNAME_HEK(CopSTASH(&PL_compiling)));
+  OUTPUT:
+    RETVAL
