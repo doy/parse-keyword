@@ -78,7 +78,7 @@ lex_read_space()
     PL_curcop = &PL_compiling;
     lex_read_space(0);
 
-SV*
+SV *
 parse_block()
   PREINIT:
     I32 floor;
