@@ -86,7 +86,7 @@ sub parse_name {
         last unless length $char;
         if ($char =~ $char_rx) {
             $name .= $char;
-            lex_read(1);
+            lex_read;
             $char_rx = $cont_rx;
         }
         elsif ($allow_package && $char eq ':') {
