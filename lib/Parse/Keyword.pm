@@ -46,12 +46,12 @@ sub import {
 
     my @helpers = qw(
         lex_peek
-        lex_read_space
         lex_read
+        lex_read_space
+        lex_stuff
         parse_block
         parse_arithexpr
         compiling_package
-        lex_stuff
     );
 
     for my $helper (@helpers) {

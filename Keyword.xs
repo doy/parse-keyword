@@ -84,11 +84,41 @@ install_keyword_handler(keyword, handler)
   CODE:
     cv_set_call_parser((CV*)SvRV(keyword), parser_callback, handler);
 
+SV *
+lex_peek(len = 1)
+    UV len
+  CODE:
+    PL_curcop = &PL_compiling;
+    while (PL_parser->bufend - PL_parser->bufptr < len) {
+        if (!lex_next_chunk(LEX_KEEP_PREVIOUS)) {
+            break;
+        }
+    }
+    if (PL_parser->bufend - PL_parser->bufptr < len) {
+        len = PL_parser->bufend - PL_parser->bufptr;
+    }
+    RETVAL = newSVpvn(PL_parser->bufptr, len); /* XXX unicode? */
+  OUTPUT:
+    RETVAL
+
+void
+lex_read(len = 1)
+    UV len
+  CODE:
+    PL_curcop = &PL_compiling;
+    lex_read_to(PL_parser->bufptr + len);
+
 void
 lex_read_space()
   CODE:
     PL_curcop = &PL_compiling;
     lex_read_space(0);
+
+void
+lex_stuff(str)
+    SV *str
+  CODE:
+    lex_stuff_sv(str, 0);
 
 SV *
 parse_block()
@@ -133,38 +163,8 @@ parse_arithexpr()
     RETVAL
 
 SV *
-lex_peek(len = 1)
-    UV len
-  CODE:
-    PL_curcop = &PL_compiling;
-    while (PL_parser->bufend - PL_parser->bufptr < len) {
-        if (!lex_next_chunk(LEX_KEEP_PREVIOUS)) {
-            break;
-        }
-    }
-    if (PL_parser->bufend - PL_parser->bufptr < len) {
-        len = PL_parser->bufend - PL_parser->bufptr;
-    }
-    RETVAL = newSVpvn(PL_parser->bufptr, len); /* XXX unicode? */
-  OUTPUT:
-    RETVAL
-
-void
-lex_read(len = 1)
-    UV len
-  CODE:
-    PL_curcop = &PL_compiling;
-    lex_read_to(PL_parser->bufptr + len);
-
-SV *
 compiling_package()
   CODE:
     RETVAL = newSVsv(PL_curstname);
   OUTPUT:
     RETVAL
-
-void
-lex_stuff(str)
-    SV *str
-  CODE:
-    lex_stuff_sv(str, 0);
