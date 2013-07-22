@@ -143,7 +143,7 @@ lex_stuff(str)
     lex_stuff_sv(str, 0);
 
 SV *
-parse_block(named = false)
+parse_block(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_block, named);
@@ -151,7 +151,7 @@ parse_block(named = false)
     RETVAL
 
 SV *
-parse_stmtseq(named = false)
+parse_stmtseq(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_stmtseq, named);
@@ -159,7 +159,7 @@ parse_stmtseq(named = false)
     RETVAL
 
 SV *
-parse_fullstmt(named = false)
+parse_fullstmt(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_fullstmt, named);
@@ -167,7 +167,7 @@ parse_fullstmt(named = false)
     RETVAL
 
 SV *
-parse_barestmt(named = false)
+parse_barestmt(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_barestmt, named);
@@ -175,7 +175,7 @@ parse_barestmt(named = false)
     RETVAL
 
 SV *
-parse_fullexpr(named = false)
+parse_fullexpr(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_fullexpr, named);
@@ -183,7 +183,7 @@ parse_fullexpr(named = false)
     RETVAL
 
 SV *
-parse_listexpr(named = false)
+parse_listexpr(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_listexpr, named);
@@ -191,7 +191,7 @@ parse_listexpr(named = false)
     RETVAL
 
 SV *
-parse_termexpr(named = false)
+parse_termexpr(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_termexpr, named);
@@ -199,7 +199,7 @@ parse_termexpr(named = false)
     RETVAL
 
 SV *
-parse_arithexpr(named = false)
+parse_arithexpr(named = FALSE)
     bool named
   CODE:
     RETVAL = parser_fn(Perl_parse_arithexpr, named);
