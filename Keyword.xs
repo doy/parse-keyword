@@ -15,14 +15,14 @@
 
 #define LEAVE_PARSER LEAVE
 
-static SV *parser_fn(OP *(fn)(U32))
+static SV *parser_fn(OP *(fn)(U32), bool named)
 {
     I32 floor;
     CV *code;
 
     REENTER_PARSER;
 
-    floor = start_subparse(0, CVf_ANON);
+    floor = start_subparse(0, named ? 0 : CVf_ANON);
     code = newATTRSUB(floor, NULL, NULL, NULL, fn(0));
 
     LEAVE_PARSER;
@@ -143,58 +143,66 @@ lex_stuff(str)
     lex_stuff_sv(str, 0);
 
 SV *
-parse_block()
+parse_block(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_block);
+    RETVAL = parser_fn(Perl_parse_block, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_stmtseq()
+parse_stmtseq(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_stmtseq);
+    RETVAL = parser_fn(Perl_parse_stmtseq, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_fullstmt()
+parse_fullstmt(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_fullstmt);
+    RETVAL = parser_fn(Perl_parse_fullstmt, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_barestmt()
+parse_barestmt(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_barestmt);
+    RETVAL = parser_fn(Perl_parse_barestmt, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_fullexpr()
+parse_fullexpr(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_fullexpr);
+    RETVAL = parser_fn(Perl_parse_fullexpr, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_listexpr()
+parse_listexpr(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_listexpr);
+    RETVAL = parser_fn(Perl_parse_listexpr, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_termexpr()
+parse_termexpr(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_termexpr);
+    RETVAL = parser_fn(Perl_parse_termexpr, named);
   OUTPUT:
     RETVAL
 
 SV *
-parse_arithexpr()
+parse_arithexpr(named = false)
+    bool named
   CODE:
-    RETVAL = parser_fn(Perl_parse_arithexpr);
+    RETVAL = parser_fn(Perl_parse_arithexpr, named);
   OUTPUT:
     RETVAL
 

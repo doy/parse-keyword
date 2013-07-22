@@ -105,10 +105,14 @@ reverse order. See L<perlapi/lex_stuff_sv> for more information.
 parse_fullexpr, parse_listexpr, parse_termexpr, parse_arithexpr
 
 These functions parse the specified amount of Perl code, and return a coderef
-which will evaluate that code when executed. See L<perlapi/parse_block>,
-L<perlapi/parse_stmtseq>, L<perlapi/parse_fullstmt>, L<perlapi/parse_barestmt>,
-L<perlapi/parse_fullexpr>, L<parse_listexpr>, L<parse_termexpr>, and
-L<perlapi/parse_arithexpr> for more details.
+which will evaluate that code when executed. They each take an optional boolean
+parameter that should be true if you are creating a subroutine which will be
+going in the symbol table, or in other more obscure situations involving
+closures (the CVf_ANON flag will be set on the created coderef if this is not
+passed - see C<t/unavailable.t> in this distribution). See
+L<perlapi/parse_block>, L<perlapi/parse_stmtseq>, L<perlapi/parse_fullstmt>,
+L<perlapi/parse_barestmt>, L<perlapi/parse_fullexpr>, L<parse_listexpr>,
+L<parse_termexpr>, and L<perlapi/parse_arithexpr> for more details.
 
 =func compiling_package
 
