@@ -73,6 +73,12 @@ current position in the buffer to be parsed is not moved. See L<<
 perlapi/PL_parser->linestr >> and L<perlapi/lex_next_chunk> for more
 information.
 
+NOTE: This function currently only returns text that is on the current line,
+unless the current line has been fully read (via C<lex_read>). This is due to a
+bug in perl itself, and this restriction will hopefully be lifted in a future
+version of this module, so don't depend on it. See the L</BUGS> section for
+more information.
+
 =func lex_read($n)
 
 Moves the current position in the parsing buffer forward by C<$n> characters
@@ -147,7 +153,15 @@ sub import {
 
 =head1 BUGS
 
-This module inherits the limitation from L<Devel::CallParser> that custom
+Peeking into the next line is currently (as of 5.19.2) broken in perl if the
+current line hasn't been fully consumed. This module works around this by just
+not doing that. This shouldn't be an issue for the most part, since it will
+only come up if you need to conditionally parse something based on a token that
+can span multiple lines. Just keep in mind that if you're reading in a large
+chunk of text, you'll need to alternate between calling C<lex_peek> and
+C<lex_read>, or else you'll only be able to see text on the current line.
+
+This module also inherits the limitation from L<Devel::CallParser> that custom
 parsing is only triggered if the keyword is called by its unqualified name
 (C<try>, not C<Try::try>, for instance).
 

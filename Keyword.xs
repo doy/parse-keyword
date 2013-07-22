@@ -95,14 +95,29 @@ lex_peek(len = 1)
     UV len
   CODE:
     PL_curcop = &PL_compiling;
+
+    /* XXX before 5.19.2, lex_next_chunk when we aren't at the end of a line
+     * just breaks things entirely (the parser no longer sees the text that is
+     * read in). this is (i think inadvertently) fixed in 5.19.2 (21791330a),
+     * but it still screws up the line numbers of everything that follows. so,
+     * the workaround is just to not call lex_next_chunk unless we're at the
+     * end of a line. this is a bit limiting, but should rarely come up in
+     * practice.
+    */
+    /*
     while (PL_parser->bufend - PL_parser->bufptr < len) {
         if (!lex_next_chunk(0)) {
             break;
         }
     }
+    */
+    if (PL_parser->bufptr == PL_parser->bufend) {
+        lex_next_chunk(0);
+    }
     if (PL_parser->bufend - PL_parser->bufptr < len) {
         len = PL_parser->bufend - PL_parser->bufptr;
     }
+
     RETVAL = newSVpvn(PL_parser->bufptr, len); /* XXX unicode? */
   OUTPUT:
     RETVAL
