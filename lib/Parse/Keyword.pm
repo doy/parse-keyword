@@ -40,6 +40,9 @@ XSLoader::load(
 
 =head1 DESCRIPTION
 
+B<< NOTE: The API of this module is still in flux. I may make
+backwards-incompatible changes as I figure out how it should look. >>
+
 This module allows you to write keyword-based syntax extensions without
 requiring you to write any C code yourself. It is similar to L<Devel::Declare>,
 except that it uses the Perl parser API introduced in Perl 5.14 in order to
