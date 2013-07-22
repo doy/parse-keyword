@@ -96,7 +96,7 @@ lex_peek(len = 1)
   CODE:
     PL_curcop = &PL_compiling;
     while (PL_parser->bufend - PL_parser->bufptr < len) {
-        if (!lex_next_chunk(LEX_KEEP_PREVIOUS)) {
+        if (!lex_next_chunk(0)) {
             break;
         }
     }
