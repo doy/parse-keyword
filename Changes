@@ -1,6 +1,9 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - the parse_* functions now return undef when there was a parse error
+      - various bugs related to error handling should be fixed
+      - remove unnecessary test dep on B::Hooks::EndOfScope
 
 0.02  2013-07-22
       - work around some issues that would happen when you peeked past the end
