@@ -22,12 +22,17 @@
 static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
 {
     I32 floor;
+    OP *parsed;
     CV *code;
 
     REENTER_PARSER;
 
     floor = start_subparse(0, named ? 0 : CVf_ANON);
-    code = newATTRSUB(floor, NULL, NULL, NULL, fn(aTHX_ 0));
+    parsed = fn(aTHX_ 0);
+    if (PL_parser->error_count) {
+        return newSV(0);
+    }
+    code = newATTRSUB(floor, NULL, NULL, NULL, parsed);
 
     LEAVE_PARSER;
 
