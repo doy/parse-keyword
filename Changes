@@ -1,6 +1,11 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - work around some issues that would happen when you peeked past the end
+        of the line
+      - allow parsing into non-anonymous subs (this makes a difference in some
+        obscure situations)
+      - fix compilation on threaded perls
 
 0.01  2013-07-21
       - Initial release
