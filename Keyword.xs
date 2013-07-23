@@ -65,6 +65,8 @@ static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
      */
 
     PUSHMARK(SP);
+    mXPUSHp(GvNAME(namegv), GvNAMELEN(namegv));
+    PUTBACK;
     count = call_sv(psobj, G_ARRAY);
     SPAGAIN;
     if (count > 1) {
