@@ -37,7 +37,9 @@ static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
     LEAVE_PARSER;
 
     if (errors) {
-        croak_sv(ERRSV);
+        ++PL_parser->error_count;
+        sv_catsv(PL_errors, ERRSV);
+        return newSV(0);
     }
     else {
         if (CvCLONE(code)) {

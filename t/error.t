@@ -2,58 +2,71 @@
 use strict;
 use warnings;
 use Test::More;
-
-my $got_code;
-BEGIN {
-    package My::Parser;
-    use Exporter 'import';
-    our @EXPORT = ('foo', 'bar');
-    use Parse::Keyword {
-        foo => \&parse_foo,
-        bar => \&parse_bar,
-    };
-
-    sub foo { 1 }
-    sub parse_foo {
-        lex_read_space;
-        my $code = parse_block;
-        $got_code = $code ? 1 : 0;
-        return sub {};
-    }
-
-    sub bar { 1 }
-    sub parse_bar {
-        lex_read_space;
-        my $code = eval { parse_block };
-        $got_code = $code ? 1 : 0;
-        return sub {};
-    }
-
-    $INC{'My/Parser.pm'} = __FILE__;
-}
+use lib 't/lib';
 
 use My::Parser;
 
-ok(!eval "foo");
-ok($@);
-ok(!$got_code);
-ok(eval "foo { }");
-ok(!$@);
-ok($got_code);
-ok(!eval 'foo { $baz }');
-like($@, qr/^Global symbol "\$baz" requires explicit package name/);
+{
+    my $ret = eval 'foo';
+    # not testing the value of $@ because it's just "whatever the parser
+    # happens to do after getting into a confused state"
+    ok($@);
+    ok(!$ret);
+    ok(!$My::Parser::got_code);
+}
+{
+    my $ret = eval 'foo { }';
+    ok(!$@);
+    ok($ret);
+    ok($My::Parser::got_code);
+}
+{
+    my $ret = eval 'foo { $baz }';
+    like($@, qr/^Global symbol "\$baz" requires explicit package name/);
+    ok(!$ret);
+    ok(!$My::Parser::got_code);
+}
 
-# even in an eval, unrecoverable errors still throw, because the parser state
-# is now too confused to continue - the error will be thrown after normal
-# parsing continues
-ok(!eval "bar");
-ok($@);
-ok(!$got_code);
-ok(eval "bar { }");
-ok(!$@);
-ok($got_code);
-# but recoverable errors no longer throw
-ok(eval 'bar { $baz }');
-is($@, '');
+# wrapping a parsing function in an eval doesn't actually help, because parsing
+# doesn't throw errors in the same way. errors are all saved up until parsing
+# finishes, and then they are all reported at once if there were any.
+{
+    my $ret = eval 'bar';
+    # not testing the value of $@ because it's just "whatever the parser
+    # happens to do after getting into a confused state"
+    ok($@);
+    ok(!$ret);
+    ok(!$My::Parser::got_code);
+}
+{
+    my $ret = eval 'bar { }';
+    ok(!$@);
+    ok($ret);
+    ok($My::Parser::got_code);
+}
+{
+    my $ret = eval 'bar { $baz }';
+    # the eval does, however, prevent perl from seeing what the message was
+    like($@, qr/^Compilation error/);
+    ok(!$ret);
+    ok(!$My::Parser::got_code);
+}
+
+{
+    skip "Capture::Tiny is required here", 1
+        unless eval { require Capture::Tiny };
+    my ($out, $err, $exit) = Capture::Tiny::capture(sub {
+        system($^X, (map { qq[-I$_] } @INC), 't/error.pl')
+    });
+    is($out, '');
+    is(
+        $err,
+        <<'ERR'
+Global symbol "$baz" requires explicit package name at t/error.pl line 9.
+Execution of t/error.pl aborted due to compilation errors.
+ERR
+    );
+    isnt($exit, 0);
+}
 
 done_testing;
