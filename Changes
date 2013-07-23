@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.03  2013-07-23
       - the parse_* functions now return undef when there was a parse error
       - various bugs related to error handling should be fixed
       - remove unnecessary test dep on B::Hooks::EndOfScope
