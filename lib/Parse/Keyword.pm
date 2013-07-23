@@ -174,6 +174,10 @@ This module also inherits the limitation from L<Devel::CallParser> that custom
 parsing is only triggered if the keyword is called by its unqualified name
 (C<try>, not C<Try::try>, for instance).
 
+This module doesn't yet work with lexical subs, such as via
+L<Exporter::Lexical>. This will hopefully be fixed in the future, but will
+likely require modifications to perl.
+
 Please report any bugs to GitHub Issues at
 L<https://github.com/doy/parse-keyword/issues>.
 
