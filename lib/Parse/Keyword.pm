@@ -185,6 +185,8 @@ L<https://github.com/doy/parse-keyword/issues>.
 
 L<Devel::CallParser>
 
+L<Keyword::API>
+
 L<Devel::Declare>
 
 =head1 SUPPORT
