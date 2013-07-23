@@ -15,6 +15,8 @@ XSLoader::load(
 =head1 SYNOPSIS
 
   use Parse::Keyword { try => \&try_parser };
+  use Exporter 'import';
+  our @EXPORT = 'try';
 
   sub try {
       my ($try, $catch) = @_;
