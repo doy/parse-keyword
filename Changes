@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.02  2013-07-22
       - work around some issues that would happen when you peeked past the end
         of the line
       - allow parsing into non-anonymous subs (this makes a difference in some
