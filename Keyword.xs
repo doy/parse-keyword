@@ -38,7 +38,6 @@ static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
 
     if (errors) {
         ++PL_parser->error_count;
-        sv_catsv(PL_errors, ERRSV);
         return newSV(0);
     }
     else {
