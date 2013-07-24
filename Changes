@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.04  2013-07-23
       - pass the keyword name into the parsing function
 
 0.03  2013-07-23
