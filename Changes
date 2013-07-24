@@ -1,6 +1,7 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - pass the keyword name into the parsing function
 
 0.03  2013-07-23
       - the parse_* functions now return undef when there was a parse error
