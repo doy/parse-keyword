@@ -11,21 +11,16 @@
 #define scalar(a) Perl_scalar(aTHX_ a)
 #endif
 
-#define REENTER_PARSER STMT_START {    \
-    ENTER;                     \
-    PL_curcop = &PL_compiling; \
-    SAVEVPTR(PL_op);           \
-} STMT_END
-
-#define LEAVE_PARSER LEAVE
-
 static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
 {
     I32 floor;
     CV *code;
     U8 errors;
 
-    REENTER_PARSER;
+    ENTER;
+
+    PL_curcop = &PL_compiling;
+    SAVEVPTR(PL_op);
     SAVEI8(PL_parser->error_count);
     PL_parser->error_count = 0;
 
@@ -34,7 +29,7 @@ static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
 
     errors = PL_parser->error_count;
 
-    LEAVE_PARSER;
+    LEAVE;
 
     if (errors) {
         ++PL_parser->error_count;
