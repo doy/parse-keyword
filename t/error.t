@@ -52,7 +52,7 @@ use My::Parser;
     ok(!$My::Parser::got_code);
 }
 
-{
+SKIP: {
     skip "Capture::Tiny is required here", 1
         unless eval { require Capture::Tiny };
     my ($out, $err, $exit) = Capture::Tiny::capture(sub {
