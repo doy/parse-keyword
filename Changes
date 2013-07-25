@@ -1,6 +1,7 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - fix skipping tests
 
 0.04  2013-07-23
       - pass the keyword name into the parsing function
