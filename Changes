@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.05  2013-07-24
       - fix skipping tests
 
 0.04  2013-07-23
