@@ -7,10 +7,6 @@
 #define cv_clone(a) Perl_cv_clone(aTHX_ a)
 #endif
 
-#ifndef scalar
-#define scalar(a) Perl_scalar(aTHX_ a)
-#endif
-
 static SV *parser_fn(OP *(fn)(pTHX_ U32), bool named)
 {
     I32 floor;
@@ -80,7 +76,7 @@ static OP *parser_callback(pTHX_ GV *namegv, SV *psobj, U32 *flagsp)
     }
 
     return newUNOP(OP_ENTERSUB, OPf_STACKED,
-                   newCVREF(0, scalar(newSVOP(OP_CONST, 0, args_generator))));
+                   newCVREF(0, newSVOP(OP_CONST, 0, args_generator)));
 }
 
 /* TODO:
