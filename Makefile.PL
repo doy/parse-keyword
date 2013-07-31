@@ -5,13 +5,19 @@
 use strict;
 use warnings;
 
+use Config;
 use ExtUtils::MakeMaker::Dist::Zilla::Develop;
 
 use Devel::CallParser 'callparser1_h', 'callparser_linkable';
 open my $fh, '>', 'callparser1.h' or die "Couldn't write to callparser1.h";
 $fh->print(callparser1_h);
 
+my @linkable = callparser_linkable;
+push @linkable, "Keyword$Config{obj_ext}" if @linkable;
+
 WriteMakefile(
     NAME   => 'Parse::Keyword',
-    OBJECT => join(' ', callparser_linkable),
+    (@linkable
+        ? (OBJECT => join(' ', @linkable))
+        : ()),
 );
