@@ -7,10 +7,11 @@ use warnings;
 
 use ExtUtils::MakeMaker::Dist::Zilla::Develop;
 
-use Devel::CallParser 'callparser1_h';
+use Devel::CallParser 'callparser1_h', 'callparser_linkable';
 open my $fh, '>', 'callparser1.h' or die "Couldn't write to callparser1.h";
 $fh->print(callparser1_h);
 
 WriteMakefile(
-    NAME => 'Parse::Keyword',
+    NAME   => 'Parse::Keyword',
+    OBJECT => join(' ', callparser_linkable),
 );
