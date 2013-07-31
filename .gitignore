@@ -15,4 +15,6 @@ Parse-Keyword-*
 *.bs
 *.o
 *.c
+*.def
+dll.*
 callparser1.h
