@@ -21,6 +21,16 @@ EXTRA
     return $tmpl;
 };
 
+around _build_WriteMakefile_args => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $args = $self->$orig(@_);
+    $args->{clean} = {
+        FILES => "callparser1.h",
+    };
+    return $args;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

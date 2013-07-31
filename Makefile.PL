@@ -17,6 +17,9 @@ unshift @linkable, "Keyword$Config{obj_ext}" if @linkable;
 
 WriteMakefile(
     NAME   => 'Parse::Keyword',
+    clean  => {
+        FILES => "callparser1.h",
+    },
     (@linkable
         ? (OBJECT => join(' ', @linkable))
         : ()),
