@@ -12,6 +12,7 @@ use inc::MMHelper;
 
 my %WriteMakefileArgs = (
     NAME => 'Parse::Keyword',
+    test => { TESTS => 't/*.t t/*/*.t' },
     %{ inc::MMHelper::mm_args() },
 );
 
