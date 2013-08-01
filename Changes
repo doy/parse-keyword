@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.06  2013-08-01
       - support building on windows (forwardever, #3)
 
 0.05  2013-07-24
