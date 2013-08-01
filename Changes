@@ -1,6 +1,7 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - support building on windows (forwardever, #3)
 
 0.05  2013-07-24
       - fix skipping tests
