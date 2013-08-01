@@ -8,19 +8,14 @@ use warnings;
 use Config;
 use ExtUtils::MakeMaker::Dist::Zilla::Develop;
 
-use Devel::CallParser 'callparser1_h', 'callparser_linkable';
-open my $fh, '>', 'callparser1.h' or die "Couldn't write to callparser1.h";
-$fh->print(callparser1_h);
+use inc::MMHelper;
 
-my @linkable = callparser_linkable;
-unshift @linkable, "Keyword$Config{obj_ext}" if @linkable;
-
-WriteMakefile(
-    NAME   => 'Parse::Keyword',
-    clean  => {
-        FILES => "callparser1.h",
-    },
-    (@linkable
-        ? (OBJECT => join(' ', @linkable))
-        : ()),
+my %WriteMakefileArgs = (
+    NAME => 'Parse::Keyword',
+    %{ inc::MMHelper::mm_args() },
 );
+
+eval inc::MMHelper::makefile_pl_extra . ';1;'
+    or die $@;
+
+WriteMakefile(%WriteMakefileArgs);
