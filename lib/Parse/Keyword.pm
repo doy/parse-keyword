@@ -40,6 +40,16 @@ XSLoader::load(
       return (sub { ($try, $catch) }, 1);
   }
 
+=head1 DO NOT USE!
+
+This module has fundamental errors in the way it handles closures, which are
+not fixable. Runtime keywords will never be able to work properly with the
+current design of this module. There are certain cases where this module is
+still safe to use (keywords that only have effect at compile time, or keywords
+that never call any of the C<parse_*> functions), but that is limiting enough
+to make this module mostly worthless, and I likely won't be continuing to
+maintain it. Be warned!
+
 =head1 DESCRIPTION
 
 B<< NOTE: The API of this module is still in flux. I may make
