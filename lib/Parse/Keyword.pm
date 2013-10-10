@@ -2,7 +2,7 @@ package Parse::Keyword;
 use strict;
 use warnings;
 use 5.014;
-# ABSTRACT: write syntax extensions in perl
+# ABSTRACT: DEPRECATED: write syntax extensions in perl
 
 use Devel::CallParser;
 use XSLoader;
