@@ -1,6 +1,8 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+
+0.08  2013-10-10
       - doc tweaks to make the deprecation notice more visible
 
 0.07  2013-10-10
