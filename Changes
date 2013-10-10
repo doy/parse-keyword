@@ -1,6 +1,9 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - THIS MODULE IS NO LONGER SUPPORTED DUE TO UNFIXABLE BROKENNESS
+        see the warning in the documentation for more details
+      - fix tests for newer Carp (abraxxa)
 
 0.06  2013-08-01
       - support building on windows (forwardever, #3)
