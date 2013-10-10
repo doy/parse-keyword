@@ -1,6 +1,7 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - doc tweaks to make the deprecation notice more visible
 
 0.07  2013-10-10
       - THIS MODULE IS NO LONGER SUPPORTED DUE TO UNFIXABLE BROKENNESS
