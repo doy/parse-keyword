@@ -20,14 +20,14 @@ my ( $foo, $bar, $other );
 $_ = "magic";
 
 try {
-	die "foo";
+    die "foo";
 } catch {
 
-	like( $_, qr/foo/ );
+    like( $_, qr/foo/ );
 
-	when (/bar/) { $bar++ };
-	when (/foo/) { $foo++ };
-	default { $other++ };
+    when (/bar/) { $bar++ };
+    when (/foo/) { $foo++ };
+    default { $other++ };
 }
 
 is( $_, "magic", '$_ not clobbered' );
