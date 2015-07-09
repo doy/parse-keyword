@@ -1,6 +1,9 @@
 Revision history for Parse-Keyword
 
 {{$NEXT}}
+      - Added [Deprecated] to dist.ini, so the META.* files will have
+        x_deprecated => 1, making it easier for tools to identify dist
+        as deprecated.
 
 0.08  2013-10-10
       - doc tweaks to make the deprecation notice more visible
